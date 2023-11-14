@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="container p-3">
+        <h3 class="text-center p-3">Employee List</h3>
+        <table class="table table-bordered">
+            <a href="{% url 'addpage' %}" class="btn btn-success">Add Employee</a>
+            <thead>
+                <tr>
+                    <th class="text-center">ID</th>
+                    <th class="text-center">Name</th>
+                    <th class="text-center">Email</th>
+                    <th class="text-center">Address</th>
+                    <th class="text-center">Phone No</th>
+                    <th class="text-center">Image</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in employee %}
+                <tr>
+                    <td class="text-center">{{i.id}}</td>
+                    <td class="text-center">{{i.name}}</td>
+                    <td class="text-center">{{i.email}}</td>
+                    <td class="text-center">{{i.address}}</td>
+                    <td class="text-center">{{i.phone_no}}</td>
+                    <td class="text-center">
+                        <a href="{{i.image.url}}" target="_blank">
+                            <img src="{{i.image.url}}" class="rounded-circle"  alt="image" width="70px" height="70px">
+                        </a>
+                    </td>
+                    <td>
+                        <div class="d-flex gap-2">
+                            <a href="{% url 'updatepage' i.id %}" class="btn btn-success btn-sm">Update</a>
+                            <a href="{% url 'deletepage' i.id %}" class="btn btn-danger btn-sm">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</form>
+{% endblock content %}
